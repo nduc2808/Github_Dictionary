@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DictionaryManagement {
@@ -32,7 +31,7 @@ public class DictionaryManagement {
                 if (line == null) {
                     break;
                 }
-                String[] txt = line.split("\t");
+                String[] txt = line.split("\\s+");
                 String wordEng = txt[0];
                 String wordVie = txt[1];
                 Dictionary.getWords().add(new Word(wordEng, wordVie));
@@ -44,69 +43,77 @@ public class DictionaryManagement {
     }
 
     public static void dictionaryLookup() {
-        System.out.println("Nhap tu can tra: ");
+        System.out.println("Nhập từ cần tra: ");
         String tuCanTra = scanner.nextLine();
         int k = 0;
         for (int i = 0; i < Dictionary.getWords().size(); i++) {
             if (Dictionary.getWords().get(i).getWord_target().equalsIgnoreCase(tuCanTra)) {
-                System.out.println("Nghia cua tu la: " + Dictionary.getWords().get(i).getWord_explain());
-                k = 0;
+                System.out.println("Nghĩa của từ là: " + Dictionary.getWords().get(i).getWord_explain());
+                k = 1;
             }
-            else if (k == 1) {
-                System.out.println("Xin vui long nhap lai!");
+            if (k == 0) {
+                System.out.println("Xin vui lòng nhập lại!");
             }
         }
     }
 
-    public static void adddata(String wordEng, String wordVie) {
-        Dictionary.getWords().add(new Word(wordEng, wordVie));
+    public static void adddata() {
+        System.out.println("Nhập nghĩa tiếng Anh: ");
+        String addwordEng = scanner.nextLine();
+        System.out.println("Nhập nghĩa tiếng Việt: ");
+        String addwordVie = scanner.nextLine();
+        Word addword = new Word(addwordEng,addwordVie);
+        Dictionary.getWords().add(addword);
     }
 
-//    public static void fixdata(String wordEng, String wordVie, String engfix, String viefix) {
-//        System.out.println("Nhap tu can tra: ");
-//        String engfix = scanner.nextLine();
-//        String Viefix = scanner.nextLine();
-//        for (int i = 0; i < Dictionary.getWords().size(); i++) {
-//            if(Dictionary.getWords().get(i).getWord_target().equalsIgnoreCase(wordEng)) {
-//                Dictionary.getWords().get(i).getWord_target() = engfix;
-//            } else if (Dictionary.getWords().get(i).getWord_explain().equalsIgnoreCase(wordVie)) {
-//                Dictionary.getWords().get(i).
-//            }
-//        }
-//    }
+    public static void fixdata() {
+        System.out.println("Nhập từ tiếng Anh muốn sửa: ");
+        String wordtargetfix = scanner.nextLine();
+        System.out.println("Nhập từ tiếng Việt muốn sửa: ");
+        String wordexplainfix = scanner.nextLine();
+        System.out.println("Nhập từ tiếng Anh sửa: ");
+        String fixwordtarget = scanner.nextLine();
+        System.out.println("Nhập từ tiếng Việt sửa: ");
+        String fixwordexplain = scanner.nextLine();
+        for (int i = 0; i < Dictionary.getWords().size(); i++) {
+            if(Dictionary.getWords().get(i).getWord_target().equalsIgnoreCase(wordtargetfix)) {
+                Dictionary.getWords().get(i).getWord_target() = fixwordtarget;
+            } else if (Dictionary.getWords().get(i).getWord_explain().equalsIgnoreCase(wordVie)) {
+                Dictionary.getWords().get(i).
+            }
+        }
+    }
 
-//        public static void repdata (String wordEng, String wordVie){
-//            Dictionary.getWords().remove(wordEng);
-//            Dictionary.getWords().remove(wordVie);
-//        }
+    public static void deletedata (){
+        System.out.println("Nhập từ tiếng Anh muốn xóa : ");
+        String deletewordEng = scanner.nextLine();
+        System.out.println("Nhập từ tiếng Việt muốn xóa : ");
+        String deletewordVie = scanner.nextLine();
+        Word deleteword = new Word(deletewordEng,deletewordVie);
+        Dictionary.getWords().remove(deleteword);
+    }
 
-//    public static void dictionaryExportToFile() throws IOException {
-//        ArrayList<Word> words = Dictionary.getWords();
-//        String wordds = element.getWord_target() + element.getWord_explain();
-//        try {
-//            FileWriter fileWriter = new FileWriter("dictionaries.txt");
-//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-//            for (String wordd : Dictionary.getWords()) {
-//                bufferedWriter.write(wordd.toString());
-//                bufferedWriter.newLine();
-//            }
-//            fileWriter.close();
-//            bufferedWriter.close();
-////            for (int i = 0; i < Dictionary.getWords().size(); i++) {
-////                Word element = Dictionary.getWords().get(i);
-//
-////                bufferedWriter(wordds);
-////
-////            }
-//        } catch(IOException o) {
-//            o.printStackTrace();
-//        }
-//    }
+    public static void dictionaryExportToFile() throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter("dictionaries.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (int i = 0; i < Dictionary.getWords().size(); i++) {
+                bufferedWriter.write(Dictionary.getWords().get(i).getWord_target() +
+                        "\t" + Dictionary.getWords().get(i).getWord_explain());
+            }
+            fileWriter.close();
+            bufferedWriter.close();
+        } catch(IOException o) {
+            o.printStackTrace();
+        }
+    }
 
     public static void main (String[]args) throws IOException {
-//        insertFromCommanline();
-        insertFromFile();
+        insertFromCommanline();
+//        insertFromFile();
 //        dictionaryLookup();
+        dictionaryExportToFile();
         DictionaryCommandline.showAllWords();
     }
 }
