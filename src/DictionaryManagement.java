@@ -58,7 +58,50 @@ public class DictionaryManagement {
         }
     }
 
+    public static void adddata(String wordEng, String wordVie) {
+        Dictionary.getWords().add(new Word(wordEng, wordVie));
+    }
 
+//    public static void fixdata(String wordEng, String wordVie, String engfix, String viefix) {
+//        System.out.println("Nhap tu can tra: ");
+//        String engfix = scanner.nextLine();
+//        String Viefix = scanner.nextLine();
+//        for (int i = 0; i < Dictionary.getWords().size(); i++) {
+//            if(Dictionary.getWords().get(i).getWord_target().equalsIgnoreCase(wordEng)) {
+//                Dictionary.getWords().get(i).getWord_target() = engfix;
+//            } else if (Dictionary.getWords().get(i).getWord_explain().equalsIgnoreCase(wordVie)) {
+//                Dictionary.getWords().get(i).
+//            }
+//        }
+//    }
+
+//        public static void repdata (String wordEng, String wordVie){
+//            Dictionary.getWords().remove(wordEng);
+//            Dictionary.getWords().remove(wordVie);
+//        }
+
+//    public static void dictionaryExportToFile() throws IOException {
+//        ArrayList<Word> words = Dictionary.getWords();
+//        String wordds = element.getWord_target() + element.getWord_explain();
+//        try {
+//            FileWriter fileWriter = new FileWriter("dictionaries.txt");
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            for (String wordd : Dictionary.getWords()) {
+//                bufferedWriter.write(wordd.toString());
+//                bufferedWriter.newLine();
+//            }
+//            fileWriter.close();
+//            bufferedWriter.close();
+////            for (int i = 0; i < Dictionary.getWords().size(); i++) {
+////                Word element = Dictionary.getWords().get(i);
+//
+////                bufferedWriter(wordds);
+////
+////            }
+//        } catch(IOException o) {
+//            o.printStackTrace();
+//        }
+//    }
 
     public static void main (String[]args) throws IOException {
 //        insertFromCommanline();

@@ -5,9 +5,9 @@ public class DictionaryCommandline {
 
     public static void showAllWords() {
         ArrayList<Word> hienThi = Dictionary.getWords();
-        System.out.println("No" + "\t\t\t" + "English" + "\t\t\t" + "Vietnamese");
+        System.out.printf("%-20s |%-20s |%-10s\n","No","English","Vietnamese");
         for(int i = 1; i <= hienThi.size(); i++) {
-            System.out.println(i + "\t\t\t" + hienThi.get(i).getWord_target() + "\t\t\t" + hienThi.get(i).getWord_explain());
+            System.out.printf("%-20s |%-20s |%-10s\n",i,hienThi.get(i).getWord_target(),hienThi.get(i).getWord_explain());
         }
     }
 
@@ -21,5 +21,4 @@ public class DictionaryCommandline {
         showAllWords();
         DictionaryManagement.dictionaryLookup();
     }
-
 }
