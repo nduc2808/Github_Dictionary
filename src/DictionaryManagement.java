@@ -86,7 +86,38 @@ public class DictionaryManagement {
         DictionaryCommandline.showAllWords();
     }
 
+    public static void deletedata (){
+        System.out.println("Nhập vị trí từ muốn xóa : ");
+        int deleteindex = scanner.nextInt();
+        Dictionary.getWords().remove(deleteindex - 1);
+        System.out.println("Từ điển mới là:");
+        DictionaryCommandline.showAllWords();
+    }
 
+    public static void dictionarySearcher() {
+        System.out.println("Nhập kí tự cần tra: ");
+        String wordsearch = scanner.nextLine();
+        for (int i = 0; i < Dictionary.getWords().size(); i++) {
+            if (Dictionary.getWords().get(i).getWord_target().contains(wordsearch)) {
+                System.out.println(Dictionary.getWords().get(i).getWord_target());
+            }
+        }
+    }
+
+    public static void dictionaryExportToFile() throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter("dictionaries.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (int i = 0; i < Dictionary.getWords().size(); i++) {
+                bufferedWriter.write(Dictionary.getWords().get(i).getWord_target() +
+                        "\t" + Dictionary.getWords().get(i).getWord_explain() + "\n");
+            }
+//            fileWriter.close();
+            bufferedWriter.close();
+        } catch(IOException o) {
+            o.printStackTrace();
+        }
+    }
 
     public static void main (String[]args) throws IOException {
 
