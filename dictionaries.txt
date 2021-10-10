@@ -1,5 +1,3 @@
 hello	xin chao
 hot	nong
 cold	lanh
-house	nha
-computer	may tinh
