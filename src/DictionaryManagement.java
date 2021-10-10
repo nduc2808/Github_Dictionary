@@ -56,62 +56,48 @@ public class DictionaryManagement {
         }
     }
 
-//    public static void adddata() {
-//        System.out.println("Nhập nghĩa tiếng Anh: ");
-//        String addwordEng = scanner.nextLine();
-//        System.out.println("Nhập nghĩa tiếng Việt: ");
-//        String addwordVie = scanner.nextLine();
-//        Word addword = new Word(addwordEng,addwordVie);
-//        Dictionary.getWords().add(addword);
-//    }
-
-//    public static void fixdata() {
-//        System.out.println("Nhập từ tiếng Anh muốn sửa: ");
-//        String wordtargetfix = scanner.nextLine();
-//        System.out.println("Nhập từ tiếng Việt muốn sửa: ");
-//        String wordexplainfix = scanner.nextLine();
-//        System.out.println("Nhập từ tiếng Anh sửa: ");
-//        String fixwordtarget = scanner.nextLine();
-//        System.out.println("Nhập từ tiếng Việt sửa: ");
-//        String fixwordexplain = scanner.nextLine();
-//        for (int i = 0; i < Dictionary.getWords().size(); i++) {
-//            if(Dictionary.getWords().get(i).getWord_target().equalsIgnoreCase(wordtargetfix)) {
-////                Dictionary.getWords().get(i).getWord_target() = fixwordtarget;
-//
-//            } else if (Dictionary.getWords().get(i).getWord_explain().equalsIgnoreCase(wordVie)) {
-//
-//            }
-//        }
-//    }
-
-//    public static void deletedata (){
-//        System.out.println("Nhập từ tiếng Anh muốn xóa : ");
-//        String deletewordEng = scanner.nextLine();
-//        System.out.println("Nhập từ tiếng Việt muốn xóa : ");
-//        String deletewordVie = scanner.nextLine();
-//        Word deleteword = new Word(deletewordEng,deletewordVie);
-//        Dictionary.getWords().remove(deleteword);
-//    }
-
-    public static void dictionaryExportToFile() throws IOException {
-        try {
-            FileWriter fileWriter = new FileWriter("dictionaries.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (int i = 0; i < Dictionary.getWords().size(); i++) {
-                bufferedWriter.write(Dictionary.getWords().get(i).getWord_target() +
-                        "\t" + Dictionary.getWords().get(i).getWord_explain());
-            }
-            fileWriter.close();
-            bufferedWriter.close();
-        } catch(IOException o) {
-            o.printStackTrace();
-        }
+    public static void adddata() {
+        System.out.println("Nhập nghĩa tiếng Anh: ");
+        String addwordEng = scanner.nextLine();
+        System.out.println("Nhập nghĩa tiếng Việt: ");
+        String addwordVie = scanner.nextLine();
+        Word addword = new Word(addwordEng,addwordVie);
+        Dictionary.getWords().add(addword);
     }
 
+    public static void fixdata() {
+        System.out.println("Nhập vị trí từ muốn sửa : ");
+        int fixindex = Integer.parseInt(scanner.nextLine());
+        System.out.println("Nhập từ tiếng Anh sửa: ");
+        String fixwordtarget = scanner.nextLine();
+        System.out.println("Nhập từ tiếng Việt sửa: ");
+        String fixwordexplain = scanner.nextLine();
+        Word fixword = new Word(fixwordtarget,fixwordexplain);
+        int k = 0;
+        for (int i = 0; i < Dictionary.getWords().size(); i++) {
+            if(i == fixindex) {
+                Dictionary.getWords().set(fixindex - 1,fixword);
+                k = 1;
+            }
+        } if ( k == 0) {
+            System.out.println("Không tìm thấy từ muốn sửa!! ");
+        }
+        System.out.println("Từ điển mới là:");
+        DictionaryCommandline.showAllWords();
+    }
+
+
+
     public static void main (String[]args) throws IOException {
-//        insertFromCommanline();
-        insertFromFile();
-        dictionaryLookup();
+
+//        insertFromFile();
+        insertFromCommanline();
+//        DictionaryCommandline.showAllWords();
+//        dictionaryLookup();
+//        adddata();
+//        deletedata();
+//        fixdata();
+//        dictionarySearcher();
 //        dictionaryExportToFile();
         DictionaryCommandline.showAllWords();
     }
