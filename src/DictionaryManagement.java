@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.Scanner;
 
+import com.sun.speech.freetts.VoiceManager;
+
 public class DictionaryManagement {
     public static Scanner scanner = new Scanner(System.in);
     private static Object Word;
@@ -61,7 +63,7 @@ public class DictionaryManagement {
         String addwordEng = scanner.nextLine();
         System.out.println("Nhập nghĩa tiếng Việt: ");
         String addwordVie = scanner.nextLine();
-        Word addword = new Word(addwordEng,addwordVie);
+        Word addword = new Word(addwordEng, addwordVie);
         Dictionary.getWords().add(addword);
     }
 
@@ -72,21 +74,22 @@ public class DictionaryManagement {
         String fixwordtarget = scanner.nextLine();
         System.out.println("Nhập từ tiếng Việt sửa: ");
         String fixwordexplain = scanner.nextLine();
-        Word fixword = new Word(fixwordtarget,fixwordexplain);
+        Word fixword = new Word(fixwordtarget, fixwordexplain);
         int k = 0;
         for (int i = 0; i < Dictionary.getWords().size(); i++) {
-            if(i == fixindex) {
-                Dictionary.getWords().set(fixindex - 1,fixword);
+            if (i == fixindex) {
+                Dictionary.getWords().set(fixindex - 1, fixword);
                 k = 1;
             }
-        } if ( k == 0) {
+        }
+        if (k == 0) {
             System.out.println("Không tìm thấy từ muốn sửa!! ");
         }
         System.out.println("Từ điển mới là:");
         DictionaryCommandline.showAllWords();
     }
 
-    public static void deletedata (){
+    public static void deletedata() {
         System.out.println("Nhập vị trí từ muốn xóa : ");
         int deleteindex = scanner.nextInt();
         Dictionary.getWords().remove(deleteindex - 1);
@@ -114,15 +117,27 @@ public class DictionaryManagement {
             }
 //            fileWriter.close();
             bufferedWriter.close();
-        } catch(IOException o) {
+        } catch (IOException o) {
             o.printStackTrace();
         }
     }
 
-    public static void main (String[]args) throws IOException {
+
+    //Phat am tieng anh
+    public static void speech(String text) {
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        // gọi đến giọng có tên là kevin16, có 2 loại nữa là alan và kevin
+        com.sun.speech.freetts.Voice syntheticVoice = voiceManager.getVoice("kevin");
+        syntheticVoice.allocate();
+        syntheticVoice.speak(text);
+        syntheticVoice.deallocate();
+    }
+
+
+    public static void main(String[] args) throws IOException {
 
 //        insertFromFile();
-        insertFromCommanline();
+//        insertFromCommanline();
 //        DictionaryCommandline.showAllWords();
 //        dictionaryLookup();
 //        adddata();
@@ -130,6 +145,7 @@ public class DictionaryManagement {
 //        fixdata();
 //        dictionarySearcher();
 //        dictionaryExportToFile();
-        DictionaryCommandline.showAllWords();
+//        DictionaryCommandline.showAllWords();
+        speech("hello");
     }
 }
